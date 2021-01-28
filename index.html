@@ -113,7 +113,7 @@ body {
 	}
 	// Удалить символ
 	function back() {
-		var exp = input.textContent;
+		let exp = input.textContent;
 		input.textContent = exp.slice(0,-1);
 		if(input.textContent == 0) {
 			input.textContent = "0";
@@ -122,7 +122,7 @@ body {
 	// Вычисление выражения
 	
 	function equal() {
-		var exp = input.textContent;
+		let exp = input.textContent;
 		if (exp) {
 			try {
 			input.textContent = eval(exp.replace('^',"**"));
