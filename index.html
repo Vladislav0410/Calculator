@@ -1,52 +1,12 @@
 <!DOCTYPE HTML>
 <html>
- <head>
-  <title>Calculator</title>
- </head>
- <style> 
-body {
-	user-select: none;
-}
-	.container{
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-		background-color: #212121;
-		Border-radius: 5px;
-		max-width: 450 px;
-		font-family: "Calibri";
-		padding: 15px;
-}
-	.item{
-		color: #fff;
-		padding:20px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		font-size: 30px;
-		cursor: pointer;
-	}
-	.input{
-		min-height: 60px;
-		height: auto;
-		padding: 5px 20px;
-		grid-column: 1/-1;
-		font-size: 40px;
-		justify-content: flex-end;
-}
-	.upper{
-	font-size:20px;
-	margin-left:3px;
-	margin-top:-10px;
-	}
-	.clean, .back, .percent, .divide, .mul, .sub, .add {
-		color: #ff7c01;
-	}
-	.equal{
-		background-color: #069df5;
-		border-radius: 20%;
-	}
-</style>
- <body>
+
+<head>
+	<title>Calculator</title>
+	<link href="style.css" rel="stylesheet">
+</head>
+
+<body>
 	<div class="container">
 		<div class="item input">0</div>
 		<div class="item type">deg</div>
@@ -54,160 +14,44 @@ body {
 		<div class="item" onclick="f('cos')">cos</div>
 		<div class="item" onclick="f('tan')">tan</div>
 		<div class="item" onclick="f('ctg')">ctg</div>
-		
+
 		<div class="item" onclick="operation('^')">x<span class="upper">y</span></div>
 		<div class="item" onclick="log('lg')">lg</div>
 		<div class="item" onclick="log('ln')">ln</div>
 		<div class="item" onclick="insert('(')">(</div>
 		<div class="item" onclick="insert(')')">)</div>
-		
+
 		<div class="item" onclick="operation('^2')">x<span class="upper">2</span></div>
 		<div class="item clean" onclick="clean()">C</div>
 		<div class="item back" onclick="back()">&#8656;</div>
 		<div class="item percent" onclick="percent()">%</div>
 		<div class="item divide" onclick="insert('/')">&divide;</div>
-		
+
 		<div class="item" onclick="operation('sqrt')">&radic;x</div>
 		<div class="item" onclick="insert('7')">7</div>
 		<div class="item" onclick="insert('8')">8</div>
 		<div class="item" onclick="insert('9')">9</div>
 		<div class="item mul" onclick="insert('*')">&times;</div>
-		
+
 		<div class="item" onclick="operation('^-1')">x<span class="upper">-1</span></div>
 		<div class="item" onclick="insert('4')">4</div>
 		<div class="item" onclick="insert('5')">5</div>
 		<div class="item" onclick="insert('6')">6</div>
 		<div class="item sub" onclick="insert('-')">-</div>
-		
+
 		<div class="item" onclick="fact()">x!</div>
 		<div class="item" onclick="insert('1')">1</div>
 		<div class="item" onclick="insert('2')">2</div>
 		<div class="item" onclick="insert('3')">3</div>
 		<div class="item add" onclick="insert('+')">+</div>
-		
+
 		<div class="item" onclick="constant('pi')">&#960;</div>
 		<div class="item" onclick="constant('e')">e</div>
 		<div class="item zero" onclick="insert('0')">0</div>
 		<div class="item" onclick="insert('.')">.</div>
 		<div class="item equal" onclick="equal()">=</div>
-		
 	</div>
- <script>
-	//Поле
-	let input = document.querySelector('.input');
-	// Ввод символа
-	function insert(num) {
-		if(input.textContent == 0){
-		input.textContent = "";
-		input.textContent += num;
-		}
-		else
-		input.textContent += num;
-		input.textContent = input.textContent.replace("-+","+").replace("--","-").replace("++","+").replace("-/","/").replace("-*","*").replace("+-","-")
-		.replace("^*","*").replace("^+","+").replace("^/","/").replace("+*","*").replace("+/","/").replace("*+","+").replace("*/","/").replace("**","*")
-		.replace("//","/").replace("/+","+").replace("/*","*");
-	}
-	// Очистка поля
-	function clean() {
-		input.textContent = "0";
-	}
-	// Удалить символ
-	function back() {
-		let exp = input.textContent;
-		input.textContent = exp.slice(0,-1);
-		if(input.textContent == 0) {
-			input.textContent = "0";
-		}
-	}
-	// Вычисление выражения
-	
-	function equal() {
-		let exp = input.textContent;
-		if (exp) {
-			try {
-			input.textContent = eval(exp.replace('^',"**"));
-		} catch (error) {
-				alert('Неверное выражение');
-			}
-		}
-	}
+	<script src="1.js"></script>
+</body>
 
-	function percent() {
-		input.textContent = eval(input.textContent)/100;
-	}
-	// Константы
-	function constant(name) {
-		if(input.textContent==0) {
-			input.textContent= "";
-		}
-		if(name == "pi") 
-		input.textContent += Math.PI.toFixed(8);
-		if(name == "e")                               
-		input.textContent += Math.E.toFixed(8);
-	}
-	// Степени числа
-	function operation(name) {
-		if(name == "sqrt")
-			input.textContent = Math.sqrt(eval(input.textContent));
-		if(name == "^2")
-			input.textContent = Math.pow((eval(input.textContent)),2);
-		if(name == "^-1")
-			input.textContent = Math.pow((eval(input.textContent)),-1);
-		if(name == "^"){
-			input.textContent += "^";
-			input.textContent = input.textContent.replace("+^","^").replace("-^","^").replace("*^","^").replace("/^","^").replace("^^","^");
-	}}
-	//факториал
-	function factorial(n) {
-		return (n != 1) ? n * factorial(n-1) : 1;
-	}
-	function fact(){
-		input.textContent = factorial(+eval(input.textContent));
-	}
-	//Логарифмы
-	function log(name) {
-		if(name == "lg"){
-			input.textContent = Math.log10(eval(input.textContent)).toFixed(8).replace('NaN',"Error");
-		}
-		if(name == "ln"){
-			input.textContent = Math.log(eval(input.textContent)).toFixed(8).replace('NaN',"Error");
-		}
-	}
-	//Пепеключение между графусами и радианами
-	document.querySelector('.type').addEventListener('click', function() {
-		if (document.querySelector('.type').textContent == "deg") {
-			this.textContent = "rad";
-			} else if (document.querySelector('.type').textContent == "rad"){
-			this.textContent = "deg";
-			}
-		})
-	//синусы и косинусы
-	function f(name) {
-		if(name == "sin"){
-			if(document.querySelector('.type').textContent == "deg") {
-			input.textContent = parseFloat(Math.sin(eval(input.textContent)/180*Math.PI).toFixed(8).toString());
-			} else
-			input.textContent = parseFloat(Math.sin(eval(input.textContent)).toFixed(8).toString());
-		}
-		if(name == "cos"){
-			if(document.querySelector('.type').textContent == "deg") {
-			input.textContent = parseFloat(Math.cos(eval(input.textContent)/180*Math.PI).toFixed(8).toString());
-			} else
-			input.textContent = parseFloat(Math.cos(eval(input.textContent)).toFixed(8).toString());
-		}
-		if(name == "tan"){
-			if(document.querySelector('.type').textContent == "deg") {
-			input.textContent = parseFloat(Math.tan(eval(input.textContent)/180*Math.PI).toFixed(8).toString());
-			} else
-			input.textContent = parseFloat(Math.tan(eval(input.textContent)).toFixed(8).toString());
-		}
-		if(name == "ctg"){
-			if(document.querySelector('.type').textContent == "deg") {
-			input.textContent = parseFloat(1/(Math.tan(eval(input.textContent)/180*Math.PI)).toFixed(8).toString());
-			} else
-			input.textContent = parseFloat(1/(Math.tan(eval(input.textContent))).toFixed(8).toString());
-		}
-	}
- </script>
- </body>
 </html>
